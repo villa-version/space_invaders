@@ -6,6 +6,7 @@ def setup():
     size(1000,800)
     imageMode(CENTER)
     rectMode(CENTER)
+    ellipseMode(CENTER)
     textSize(24)
     global main_constructor
     main_constructor = MainConstructor()

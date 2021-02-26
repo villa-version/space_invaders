@@ -18,11 +18,11 @@ class Enemy():
             noFill()
             self.x = enemyX
             self.y = enemyY-65
-            rect(self.x, self.y, self.wRect, self.h)
+            rect(self.x, self.y, self.wRect, self.h, 3)
 
         def showHp(self):
             fill(255,0,0)
-            rect(self.x, self.y, self.wHp, self.h)
+            rect(self.x, self.y, self.wHp, self.h, 3)
 
 
     def __init__(self, x, y, w, h, speed):
@@ -31,7 +31,7 @@ class Enemy():
         self.w = w
         self.h = h
         self.speed = speed
-        self.skin = loadImage('nlo.png')
+        self.skin = loadImage('image/nlo.png')
         self.hp = Enemy.Hp(self.x, self.y, self.w, 10)
         self.allowPlusScorePlayer = False
 

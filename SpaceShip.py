@@ -87,7 +87,7 @@ class SpaceShip():
         self.w = w
         self.h = h
         self.speed = speed
-        self.skin = loadImage('spaceship.png')
+        self.skin = loadImage('image/spaceship.png')
         self.firstWeapon = SpaceShip.FirstWeapon(self.x, self.y)
         self.hp = SpaceShip.Hp(width/2+400, height-175, 100, 25)
         self.score = SpaceShip.Score(width-100, 100, 0)

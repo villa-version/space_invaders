@@ -8,24 +8,20 @@ class DropedObjects():
             self.w = w
             self.h = h
             self.speed = speed
-            self.skin = loadImage('secondweapon.png')
+            self.skin = loadImage('image/secondweapon.png')
 
         def run(self):
             self.show()
-            self.distToHeight()
             self.spawn()
 
         def show(self):
             self.y += self.speed
             image(self.skin, self.x, self.y, self.w, self.h)
 
-        def distToHeight(self):
-            if self.y > height:
-                self.spawn()
-
         def spawn(self):
-            self.x = random(0+25, width-25)
-            self.y = -300
+            if self.y > height:
+                self.x = random(0+25, width-25)
+                self.y = -10000
 
     class DropedArmor():
 
@@ -35,7 +31,7 @@ class DropedObjects():
             self.w = w
             self.h = h
             self.speed = speed
-            self.skin = loadImage('armor.png')
+            self.skin = loadImage('image/armor.png')
 
         def run(self):
             self.show()
@@ -44,7 +40,7 @@ class DropedObjects():
         def spawn(self):
             if self.y > height:
                 self.x = random(0+25, width-25)
-                self.y = -5000
+                self.y = -8000
 
         def show(self):
             self.y += self.speed

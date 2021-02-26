@@ -3,11 +3,10 @@ class Stars():
 
     class Star():
     
-        def __init__(self, x, y, w, h, speed):
+        def __init__(self, x, y, r, speed):
             self.x = x
             self.y = y
-            self.w = w
-            self.h = h
+            self.r = r
             self.speed = speed
 
         def run(self):
@@ -15,9 +14,11 @@ class Stars():
             self.spawn()
 
         def show(self):
-            self.y += 1
+            self.y += self.speed
             fill(255,255,255)
-            rect(self.x, self.y, self.w, self.h)
+            noStroke()
+            ellipse(self.x, self.y, self.r, self.r)
+            stroke(1)
 
         def spawn(self):
             if self.y > height:
@@ -27,8 +28,8 @@ class Stars():
 
     def __init__(self):
         self.listOfStars = []
-        for _ in range(0, 10):
-            self.listOfStars.append(Stars.Star(random(25, width-25), random(25, height/2), 15, 15, 5))
+        for _ in range(0, 20):
+            self.listOfStars.append(Stars.Star(random(25, width-25), random(0, height), random(5, 10), 0.2))
 
     def run(self):
         for star in self.listOfStars:

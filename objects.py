@@ -9,7 +9,7 @@ class Objects():
             self.y = y
             self.w = w
             self.h = h
-            self.skin = loadImage('armor.png')
+            self.skin = loadImage('image/armor.png')
             self.powerProtection = powerProtection
             self.breaking = breaking
 
