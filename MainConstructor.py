@@ -2,6 +2,7 @@ from SpaceShip import SpaceShip
 from Enemy import Enemy
 from objects import Objects
 from DropedObjects import DropedObjects
+from stars import Stars
 
 class MainConstructor():
 
@@ -13,8 +14,10 @@ class MainConstructor():
         self.spaceShip.setSecondWeaponTimer(self.objects.secondWeaponTimer)
         self.dropedObjects = DropedObjects(random(0+25, width-25), -2400, 50, 50, 2, random(0+25, width-25))
         self.spaceShip.setDropedSecondWeapon(self.dropedObjects.dropedSecondWeapon)
+        self.stars = Stars()
 
     def run(self):
+        self.stars.run()
         self.spaceShip.score.setAllowPlusScorePlayer(self.enemy.allowPlusScorePlayer)
         self.spaceShip.run()
         self.enemy.run(self.spaceShip.firstWeapon.listOfBullets, self.objects.secondWeapon.listOfBullets)
