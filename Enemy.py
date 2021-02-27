@@ -33,7 +33,6 @@ class Enemy():
         self.speed = speed
         self.skin = loadImage('image/nlo.png')
         self.hp = Enemy.Hp(self.x, self.y, self.w, 10)
-        self.allowPlusScorePlayer = False
 
     def run(self, firstWeaponListOfBullets, secondWeaponListOfBullets):
         self.show()
@@ -41,7 +40,6 @@ class Enemy():
         self.setBullets(firstWeaponListOfBullets, secondWeaponListOfBullets)
         self.giveDamageToEnemy()
         self.distationToHeight()
-        self.killEnemy()
 
     def giveDamageToEnemy(self):
         for bullet in self.listOfBullets:
@@ -54,15 +52,6 @@ class Enemy():
             self.listOfBullets.append(bullet)
         for bullet in secondWeaponListOfBullets:
             self.listOfBullets.append(bullet)
-
-    def killEnemy(self):
-        if self.hp.wHp <= 0:
-            self.y = -300
-            self.x = random(0+75/2, width-75/2)
-            self.hp.wHp = 75
-            self.allowPlusScorePlayer = True
-        else:
-            self.allowPlusScorePlayer = False
 
     def show(self):
         self.y += self.speed

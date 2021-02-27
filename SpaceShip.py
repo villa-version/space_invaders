@@ -63,6 +63,7 @@ class SpaceShip():
             self.x = x
             self.y = y
             self.msgScore = msgScore
+            self.allowPlusScorePlayer = False
 
         def run(self):
             self.show()
@@ -72,9 +73,6 @@ class SpaceShip():
             fill(0,0,0)
             text(str(self.msgScore), self.x, self.y)
             text('Score:', self.x-75, self.y)
-
-        def setAllowPlusScorePlayer(self, allowPlusScorePlayer):
-            self.allowPlusScorePlayer = allowPlusScorePlayer
 
         def count(self):
             if self.allowPlusScorePlayer:
@@ -95,15 +93,18 @@ class SpaceShip():
         self.dropedSecondWeapon = None
         self.secondWeapon = None
         self.secondWeaponTimer = None
+        self.enemy = None
 
     def run(self):
         self.show()
         self.move()
         self.distationWall()
+        self.killEnemy()
         self.hp.run()
         self.score.run()
         self.stateToShoot()
         self.takeSecondGun()
+        self.getDamageDist()
 
     def show(self):
         image(self.skin, self.x, self.y, self.w, self.h)
@@ -111,11 +112,22 @@ class SpaceShip():
     def setSecondWeapon(self, weapon):
         self.secondWeapon = weapon
 
+    def setEnemy(self, enemy):
+        self.enemy = enemy
+
     def setDropedSecondWeapon(self, dropWeapon):
         self.dropedSecondWeapon = dropWeapon
 
     def setSecondWeaponTimer(self, timer):
         self.secondWeaponTimer = timer
+
+    def setGameState(self, gameState):
+        if self.hp.wHp <= 0:
+            self.hp.wHp = 100
+            gameState = False
+        else:
+            gameState = True
+        return gameState
 
     def move(self):
         if keyPressed:
@@ -124,10 +136,25 @@ class SpaceShip():
             elif key == 'd':
                 self.x += self.speed
 
+    def getDamageDist(self):
+        try:
+            if (self.enemy.x > self.x-self.w/2 and self.enemy.x < self.x+self.w/2 and
+                self.enemy.y > self.y-self.h/2 and self.enemy.y < self.y+self.h/2):
+                self.hp.wHp -= 1
+        except AttributeError:
+            pass
+
+    def killEnemy(self):
+        if self.enemy.hp.wHp <= 0:
+            self.score.allowPlusScorePlayer = True
+            self.enemy.spawn()
+        else:
+            self.score.allowPlusScorePlayer = False
+
     def takeSecondGun(self):
         try:
-            if (self.dropedSecondWeapon.x+self.dropedSecondWeapon.w/2 > self.x-self.w/2 and self.dropedSecondWeapon.x-self.dropedSecondWeapon.w/2 < self.x+self.w/2  and 
-                self.dropedSecondWeapon.y+self.dropedSecondWeapon.h/2 > self.y-self.h/2 and self.dropedSecondWeapon.y-self.dropedSecondWeapon.h/2 < self.y+self.h/2):
+            if (self.dropedSecondWeapon.x > self.x-self.w/2 and self.dropedSecondWeapon.x < self.x+self.w/2  and 
+                self.dropedSecondWeapon.y > self.y-self.h/2 and self.dropedSecondWeapon.y < self.y+self.h/2):
                 self.state = 'ShootWithSecondGun'
                 self.secondWeaponTimer.__init__(0+200, height-75, 100, 50, 0.5)
                 self.dropedSecondWeapon.y = -10000

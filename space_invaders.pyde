@@ -14,10 +14,12 @@ def setup():
 
 def draw():
     background(70,174,183)
-    main_constructor.run()
+    main_constructor.game(mousePressed)
 
     if mousePressed:
         main_constructor.shootWithSecondWeapon()
 
+
 def mousePressed():
+    global main_constructor
     main_constructor.shootWithFirstWeapon()
