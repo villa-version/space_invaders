@@ -4,10 +4,11 @@ class SpaceShip():
 
     class FirstWeapon():
 
-        def __init__(self, x, y):
+        def __init__(self, x, y, soundGun):
             self.x = x
             self.y = y
             self.listOfBullets = []
+            self.soundGun = soundGun
 
         def runToShoot(self, spaceShip_x):
             self.ShootBullet(spaceShip_x)
@@ -28,6 +29,8 @@ class SpaceShip():
         def ShootBullet(self, spaceShip_x):
             self.x = spaceShip_x
             self.listOfBullets.append(Bullet(self.x, self.y, 10, 10, 35))
+            self.soundGun.play()
+            self.soundGun.rewind()
 
     class Hp():
 
@@ -80,7 +83,7 @@ class SpaceShip():
                     text('Score:', x-50, y-50)
                     text(self.score, x+25, y-50)
                     if self.score < bestScore:
-                        self.score += 1
+                        self.score += 10
 
         def __init__(self, x, y, msgScore):
             self.x = x
@@ -101,17 +104,17 @@ class SpaceShip():
 
         def count(self):
             if self.allowPlusScorePlayer:
-                self.msgScore += 1
+                self.msgScore += 100
 
 
-    def __init__(self, x, y, w, h, speed):
+    def __init__(self, x, y, w, h, speed, soundGun, takeSomething):
         self.x = x
         self.y = y
         self.w = w
         self.h = h
         self.speed = speed
         self.skin = loadImage('image/spaceship.png')
-        self.firstWeapon = SpaceShip.FirstWeapon(self.x, self.y)
+        self.firstWeapon = SpaceShip.FirstWeapon(self.x, self.y, soundGun)
         self.hp = SpaceShip.Hp(width-100, height-175, 100, 25)
         self.score = SpaceShip.Score(width-100, 100, 0)
         self.state = 'ShootWithFirstGun'
@@ -119,6 +122,8 @@ class SpaceShip():
         self.secondWeapon = None
         self.secondWeaponTimer = None
         self.enemy = None
+
+        self.takeSomething = takeSomething
 
     def run(self):
         self.show()
@@ -186,6 +191,8 @@ class SpaceShip():
                 self.state = 'ShootWithSecondGun'
                 self.secondWeaponTimer.__init__(0+200, height-75, 100, 50, 0.5)
                 self.dropedSecondWeapon.y = -10000
+                self.takeSomething.play()
+                self.takeSomething.rewind()
         except AttributeError:
             pass
 

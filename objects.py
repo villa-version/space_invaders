@@ -67,24 +67,27 @@ class Objects():
                 fill(0,255,0)
                 rect(self.x, self.y, self.wTimer, self.h)
 
-        def __init__(self, x, y):
+        def __init__(self, x, y, soundGun):
             self.x = x
             self.y = y
             self.listOfBullets = []
+            self.soundGun = soundGun
 
         def run(self):
             self.showBullets()
 
         def shoot(self, spaceShip_x):
             self.listOfBullets.append(Bullet(spaceShip_x, self.y, 10, 10, 40))
+            self.soundGun.play()
+            self.soundGun.rewind()
 
         def showBullets(self):
             for bullet in self.listOfBullets:
                 bullet.show()
 
-    def __init__(self):
+    def __init__(self, soundGun):
         self.armorIndicator = Objects.ArmorIndicator(width-100, height-75, 100, 75, 0, 0)
-        self.secondWeapon = Objects.SecondWeapon(0, height/2+150)
+        self.secondWeapon = Objects.SecondWeapon(0, height/2+150, soundGun)
         self.secondWeaponTimer = Objects.SecondWeapon.Timer(0, 0, 0, 0, 0)
 
     def run(self):

@@ -13,6 +13,10 @@ class StartGame():
     def show(self):
         image(self.skin, self.x, self.y, self.w, self.h)
 
+    def aiming(self):
+        return (self.x-self.w/2 < mouseX and self.x+self.w/2 > mouseX and 
+                self.y-self.h/2 < mouseY and self.y+self.h/2 > mouseY)
+
     def pressed(self, pressed):
         return (self.x-self.w/2 < mouseX and self.x+self.w/2 > mouseX and 
                 self.y-self.h/2 < mouseY and self.y+self.h/2 > mouseY and pressed)
