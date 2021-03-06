@@ -59,11 +59,36 @@ class SpaceShip():
 
     class Score():
 
+        class Timer():
+
+            def __init__(self):
+                self.activeTimer = True
+                self.restartTime = 0
+                self.score = 0
+
+            def restartOptions(self):
+                self.activeTimer = True
+                self.restartTime = millis()
+
+            def workTimer(self, bestScore, x, y):
+                if self.activeTimer:
+                    now = millis()
+                    if now - self.restartTime >= 2000:
+                        self.activeTimer = False
+                else:
+                    fill(0,0,0)
+                    text('Score:', x-50, y-50)
+                    text(self.score, x+25, y-50)
+                    if self.score < bestScore:
+                        self.score += 1
+
         def __init__(self, x, y, msgScore):
             self.x = x
             self.y = y
             self.msgScore = msgScore
             self.allowPlusScorePlayer = False
+            self.bestScore = 0
+            self.timer = SpaceShip.Score.Timer()
 
         def run(self):
             self.show()
@@ -87,7 +112,7 @@ class SpaceShip():
         self.speed = speed
         self.skin = loadImage('image/spaceship.png')
         self.firstWeapon = SpaceShip.FirstWeapon(self.x, self.y)
-        self.hp = SpaceShip.Hp(width/2+400, height-175, 100, 25)
+        self.hp = SpaceShip.Hp(width-100, height-175, 100, 25)
         self.score = SpaceShip.Score(width-100, 100, 0)
         self.state = 'ShootWithFirstGun'
         self.dropedSecondWeapon = None
@@ -124,8 +149,11 @@ class SpaceShip():
     def setGameState(self, gameState):
         if self.hp.wHp <= 0:
             self.hp.wHp = 100
+            self.score.bestScore = self.score.msgScore
+            self.score.msgScore = 0
             gameState = False
         else:
+            self.score.bestScore = 0
             gameState = True
         return gameState
 

@@ -83,7 +83,7 @@ class Objects():
                 bullet.show()
 
     def __init__(self):
-        self.armorIndicator = Objects.ArmorIndicator(width/2+400, height-75, 100, 75, 0, 0)
+        self.armorIndicator = Objects.ArmorIndicator(width-100, height-75, 100, 75, 0, 0)
         self.secondWeapon = Objects.SecondWeapon(0, height/2+150)
         self.secondWeaponTimer = Objects.SecondWeapon.Timer(0, 0, 0, 0, 0)
 

@@ -24,8 +24,10 @@ class MainConstructor():
         if not self.gameState:
             self.buttonToStartGame.run()
             self.gameState = self.buttonToStartGame.pressed(mouseState)
+            self.spaceShip.score.timer.workTimer(self.spaceShip.score.bestScore, self.buttonToStartGame.x, self.buttonToStartGame.y)
             self.enemy.spawn()
         else:
+            self.spaceShip.score.timer.restartOptions()
             self.run()
 
     def run(self):

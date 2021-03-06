@@ -3,7 +3,7 @@ from MainConstructor import MainConstructor
 main_constructor = None
 
 def setup():
-    size(1000,800)
+    size(800,600)
     imageMode(CENTER)
     rectMode(CENTER)
     ellipseMode(CENTER)

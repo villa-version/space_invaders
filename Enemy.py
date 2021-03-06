@@ -33,6 +33,7 @@ class Enemy():
         self.speed = speed
         self.skin = loadImage('image/nlo.png')
         self.hp = Enemy.Hp(self.x, self.y, self.w, 10)
+        self.listOfBullets = []
 
     def run(self, firstWeaponListOfBullets, secondWeaponListOfBullets):
         self.show()
