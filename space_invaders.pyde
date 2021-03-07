@@ -18,8 +18,10 @@ def setup():
     soundGun = minim_music.loadFile('sound/soundForSpaceInvGun.wav')
     soundClick = minim_music.loadFile('sound/soundMouse.mp3')
     takeSomething = minim_music.loadFile('sound/NumberTakeSome/number1/takeSomething_1.wav')
+    soundCoin = minim_music.loadFile('sound/coin.wav')
+    soundSpaceShip = minim_music.loadFile('sound/soundSpaceShip.mp3')
     global main_constructor
-    main_constructor = MainConstructor(mainMenuSound, soundMouse, soundSpace, soundGun, soundClick, takeSomething)
+    main_constructor = MainConstructor(mainMenuSound, soundMouse, soundSpace, soundGun, soundClick, takeSomething, soundCoin, soundSpaceShip)
 
 
 def draw():

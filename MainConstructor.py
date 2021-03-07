@@ -7,8 +7,8 @@ from buttonToStartGame import StartGame
 
 class MainConstructor():
 
-    def __init__ (self, mainMenuSound, soundMouse, soundSpace, soundGun, soundClick, takeSomething):
-        self.spaceShip = SpaceShip(width/2, height/2+150, 150, 150, 5, soundGun, takeSomething)
+    def __init__ (self, mainMenuSound, soundMouse, soundSpace, soundGun, soundClick, takeSomething, soundCoin, soundSpaceShip):
+        self.spaceShip = SpaceShip(width/2, height/2+150, 150, 150, 5, soundGun, takeSomething, soundCoin)
         self.enemy = Enemy(random(0+75/2, width-75/2), -300, 75, 75, 3)
         self.spaceShip.setEnemy(self.enemy)
         self.objects = Objects(soundGun)
@@ -29,14 +29,18 @@ class MainConstructor():
 
         self.soundClick = soundClick
 
+        self.soundSpaceShip = soundSpaceShip
+
     def game(self, mouseState):
         if self.gameState == False:
             self.soundClick.rewind()
             self.soundSpace.rewind()
             self.buttonToStartGame.run()
             newGameState = self.buttonToStartGame.pressed(mouseState)
+            self.soundSpaceShip.pause()
             if newGameState:
                 self.mainMenuSound.pause()
+                self.soundSpaceShip.loop()
                 self.gameState = newGameState
             self.spaceShip.score.timer.workTimer(self.spaceShip.score.bestScore, self.buttonToStartGame.x, self.buttonToStartGame.y)
             self.enemy.spawn()

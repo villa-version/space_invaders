@@ -64,10 +64,11 @@ class SpaceShip():
 
         class Timer():
 
-            def __init__(self):
+            def __init__(self, soundCoin):
                 self.activeTimer = True
                 self.restartTime = 0
                 self.score = 0
+                self.soundCoin = soundCoin
 
             def restartOptions(self):
                 self.activeTimer = True
@@ -78,20 +79,24 @@ class SpaceShip():
                     now = millis()
                     if now - self.restartTime >= 2000:
                         self.activeTimer = False
+                        self.score = 0
                 else:
                     fill(0,0,0)
                     text('Score:', x-50, y-50)
                     text(self.score, x+25, y-50)
+                    self.soundCoin.rewind()
+                    self.soundCoin.pause()
                     if self.score < bestScore:
                         self.score += 10
+                        self.soundCoin.play()
 
-        def __init__(self, x, y, msgScore):
+        def __init__(self, x, y, msgScore, soundCoin):
             self.x = x
             self.y = y
             self.msgScore = msgScore
             self.allowPlusScorePlayer = False
             self.bestScore = 0
-            self.timer = SpaceShip.Score.Timer()
+            self.timer = SpaceShip.Score.Timer(soundCoin)
 
         def run(self):
             self.show()
@@ -107,7 +112,7 @@ class SpaceShip():
                 self.msgScore += 100
 
 
-    def __init__(self, x, y, w, h, speed, soundGun, takeSomething):
+    def __init__(self, x, y, w, h, speed, soundGun, takeSomething, soundCoin):
         self.x = x
         self.y = y
         self.w = w
@@ -116,7 +121,7 @@ class SpaceShip():
         self.skin = loadImage('image/spaceship.png')
         self.firstWeapon = SpaceShip.FirstWeapon(self.x, self.y, soundGun)
         self.hp = SpaceShip.Hp(width-100, height-175, 100, 25)
-        self.score = SpaceShip.Score(width-100, 100, 0)
+        self.score = SpaceShip.Score(width-100, 100, 0, soundCoin)
         self.state = 'ShootWithFirstGun'
         self.dropedSecondWeapon = None
         self.secondWeapon = None
